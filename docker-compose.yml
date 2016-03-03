@@ -5,7 +5,7 @@ mongo:
         - ~/log/mongo:/var/log/mongo
 
 apache:
-    image: "apache"
+    image: "httpd"
     expose:
         - "80"
     ports:
