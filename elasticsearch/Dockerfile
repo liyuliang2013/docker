@@ -15,7 +15,7 @@ RUN set -ex \
 
 COPY config /usr/share/elasticsearch/config
 
-RUN /usr/share/elasticsearch/bin/plugin -install mobz/elasticsearch-head
+RUN plugin install mobz/elasticsearch-head --verbose
 
 VOLUME /usr/share/elasticsearch
 
