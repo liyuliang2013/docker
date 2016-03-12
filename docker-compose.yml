@@ -25,6 +25,7 @@ apache:
 
 elasticsearch:
     build: ./elasticsearch
+
     expose:
         - "9200"
     ports:
