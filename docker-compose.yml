@@ -17,7 +17,7 @@ apache:
     ports:
         - "80:80"
     volumes:
-        - ~/log/apache:/var/log/apache2/
+        - ~/log/apache:/var/log/apache2
         - ~/site:/site
     links:
         - "mongo"
