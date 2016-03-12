@@ -1,11 +1,17 @@
 mongo:
-    image: "mongo"
+    build: ./mongo
+    expose:
+        - "27017"
+        - "28017"
+    ports:
+        - "27017:27017"
+        - "28017:28017"
     volumes:
         - ~/data/mongo:/data/db
         - ~/log/mongo:/var/log/mongo
 
 apache:
-    image: "httpd"
+    build: ./apache
     expose:
         - "80"
     ports:
@@ -18,7 +24,7 @@ apache:
         - "elasticsearch"
 
 elasticsearch:
-    image: "elasticsearch"
+    build: ./elasticsearch
     expose:
         - "9200"
     ports:
