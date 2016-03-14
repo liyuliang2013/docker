@@ -26,6 +26,10 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
     && sed -i 's/variables_order.*/variables_order = "EGPCS"/g' \
         /etc/php5/apache2/php.ini
+RUN echo "xdebug.remote_enable=true"  >> /etc/php5/mods-available/xdebug.ini
+RUN echo "xdebug.remote_port=9003"  >> /etc/php5/mods-available/xdebug.ini
+RUN echo "xdebug.remote_connect_back=Off"  >> /etc/php5/mods-available/xdebug.ini
+
 
 ADD common.ini /etc/php5/apache2/conf.d/
 ADD common.ini /etc/php5/cli/conf.d/
