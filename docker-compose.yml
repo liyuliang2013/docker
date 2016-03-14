@@ -33,3 +33,4 @@ elasticsearch:
     volumes:
         - ~/log/elastic:/usr/share/elasticsearch/logs
         - ~/data/elastic:/usr/share/elasticsearch/data
+

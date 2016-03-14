@@ -12,6 +12,7 @@ RUN apt-get -y install \
         php5-gd \
         php5-curl \
         php5-imagick \
+        php5-xdebug \
         php5-tidy 
 
 RUN a2enmod php5
