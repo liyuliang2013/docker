@@ -15,9 +15,10 @@ RUN set -ex \
 
 COPY config /usr/share/elasticsearch/config
 
-RUN plugin install mobz/elasticsearch-head --verbose
+#NOT WORK WITH 2.2.0 VERSION
+#RUN /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head --verbose
 
-VOLUME /usr/share/elasticsearch
+VOLUME ["/var/log/elasticsearch","/usr/share/elasticsearch"]
 
 COPY docker-entrypoint.sh /
 

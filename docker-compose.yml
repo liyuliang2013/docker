@@ -8,7 +8,7 @@ mongo:
         - "28017:28017"
     volumes:
         - ~/data/mongo:/data/db
-        - ~/log/mongo:/var/log/mongo
+        - ~/log/mongo:/var/log/mongodb
 
 apache:
     build: ./apache
@@ -32,6 +32,5 @@ elasticsearch:
     ports:
         - "9200:9200"
     volumes:
-        - ~/log/elastic:/usr/share/elasticsearch/logs
+        - ~/log/elastic:/var/log/elasticsearch
         - ~/data/elastic:/usr/share/elasticsearch/data
-
