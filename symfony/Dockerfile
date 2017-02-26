@@ -4,10 +4,11 @@ RUN mkdir /app
 WORKDIR /app
 
 RUN apt-get update
-RUN apt-get install -y software-properties-common python-software-properties curl
+RUN apt-get install -y software-properties-common python-software-properties curl git
 RUN add-apt-repository ppa:ondrej/php
 RUN apt-get update
-RUN apt-get install --yes --force-yes php5.6
+RUN apt-get install --yes --force-yes php5.6 php5.6-mysql
+RUN apt-get install -y php5-mysql
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
