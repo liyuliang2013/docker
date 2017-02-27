@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+    web:
+          image: nginx:latest
+          build: ./Dockerfile
+          ports:
+              - "8080:80"
+#          volumes:
+#              - ./code:/code
+#              - ./nginx.site.conf:/etc/nginx/conf.d/default.conf
+#              - ./symfony.site.conf:/etc/nginx/conf.d/symfony.site.conf
+          networks:
+              - code-network
+    db:
+          image: mysql
+          expose:
+              - "3306"
+          ports:
+              - "3306:3306"
+          volumes:
+              - ~/log/mysql:/var/log/mysql
+          environment:
+              - MYSQL_DATABASE=banana
+              - MYSQL_ROOT_PASSWORD=liangll
+
+networks:
+    code-network:
+        driver: bridge

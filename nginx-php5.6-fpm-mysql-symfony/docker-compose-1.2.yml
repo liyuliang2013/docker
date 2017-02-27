@@ -1,0 +1,17 @@
+    web:
+          image: nginx:latest
+          build: ./Dockerfile
+          ports:
+              - "8080:80"
+    db:
+          image: mysql
+          expose:
+              - "3306"
+          ports:
+              - "3306:3306"
+          volumes:
+              - ~/log/mysql:/var/log/mysql
+          environment:
+              - MYSQL_DATABASE=banana
+              - MYSQL_ROOT_PASSWORD=liangll
+
