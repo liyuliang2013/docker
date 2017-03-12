@@ -17,16 +17,23 @@ RUN locale-gen en_US.UTF-8 && \
     apt-get install -y --force-yes nginx \
     php5.6 php5.6-zip php5.6-fpm php5.6-cli php5.6-mysql php5.6-mcrypt php5.6-xml\
     php5.6-curl && \
+    php5.6-xdebug && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* \
            /tmp/* \
            /var/tmp/*
 
+COPY ./default                                          /etc/nginx/sites-enabled/default
+
 # Configure nginx
 RUN echo "daemon off;" >>                                               /etc/nginx/nginx.conf
 RUN sed -i "s/sendfile on/sendfile off/"                                /etc/nginx/nginx.conf
-RUN mkdir -p                                                            /var/www
-RUN sed -i "s/root \/usr\/share\/nginx\/html;/root \/var\/www/;"        /etc/nginx/sites-enabled/default
+RUN mkdir -p                                                            /var/www/html
+
+# Workdir
+WORKDIR /var/www/html
+
+
 
 # Configure PHP
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/"                  /etc/php/5.6/fpm/php.ini
@@ -49,5 +56,3 @@ RUN mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 RUN php-fpm5.6 -D
 CMD service nginx start
 
-# Workdir
-WORKDIR /var/www
