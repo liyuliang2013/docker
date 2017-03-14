@@ -1,32 +1,33 @@
 FROM ubuntu:14.04
 
+RUN apt-get update 
+RUN apt-get install -y python-software-properties software-properties-common
+
 # Update software list, install php-nginx & clear cache
 RUN locale-gen en_US.UTF-8 && \
     export LANG=en_US.UTF-8 && \
     add-apt-repository -y ppa:ondrej/php && \
     apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --force-yes nginx \
-    php5.6 php5.6-zip php5.6-fpm php5.6-cli php5.6-mcrypt php5.6-xml\
-    php5.6-redus && \
-    php5.6-mysql && \
-    php5.6-curl && \
-    vim && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* \
-           /tmp/* \
-           /var/tmp/*
+    apt-get upgrade -y 
 
-COPY ./default                                          /etc/nginx/sites-enabled/default
+
+RUN apt-get install -y --force-yes nginx
+
+RUN apt-get install -y && \
+    php5.6 php5.6-zip php5.6-fpm php5.6-cli php5.6-mcrypt php5.6-xml php5.6-curl
+
+RUN apt-get install -y php5.6-mysql && \
+    php5.6-redis
+
+RUN apt-get install -y vim && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* 
+
 
 # Configure nginx
 RUN echo "daemon off;" >>                                               /etc/nginx/nginx.conf
 RUN sed -i "s/sendfile on/sendfile off/"                                /etc/nginx/nginx.conf
 RUN mkdir -p                                                            /var/www/html
-
-# Workdir
-WORKDIR /var/www/html
-
 
 
 # Configure PHP
@@ -46,6 +47,13 @@ RUN phpenmod -v 5.6 zip
 #install composer
 RUN curl -O https://getcomposer.org/composer.phar
 RUN mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
+
+# Copy nginx site config file 
+COPY ./default                                          /etc/nginx/sites-enabled/default
+
+# Workdir
+WORKDIR /var/www/html
+
 
 RUN php-fpm5.6 -D
 CMD service nginx start
